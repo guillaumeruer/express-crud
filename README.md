@@ -1,2 +1,2 @@
 # express-crud
-Express projects
+Simple nodejs CRUD project with MongoDB database and mongoose
