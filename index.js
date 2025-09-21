@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv").config();
 const Product = require("./models/product.model.js");
 const app = express();
 
@@ -65,17 +66,15 @@ app.delete("/api/product/:id", async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
+console.log(process.env.DATABASE_URL)
 mongoose
-    .connect(
-        "mongodb+srv://admin:SZBl4MOWkaJThXFB@backenddb.un6qgzh.mongodb.net/?retryWrites=true&w=majority&appName=BackendDB"
-    )
+    .connect(process.env.DATABASE_URL)
     .then(() => {
         app.listen(3000, () => {
             console.log("Server is running on port 3000");
         });
         console.log("Connected to database");
     })
-    .catch(() => {
-        console.log("Database connection failed");
+    .catch((err) => {
+        console.log("Database connection failed", err);
     });
